@@ -1,4 +1,4 @@
-# [INSERT quickstart name here]
+# Guardrailing LLMs
 
 *Section is required. NOTE: any italicized or bracketed text should be deleted
 or replaced.*  

@@ -1,0 +1,13 @@
+---
+apiVersion: trustyai.opendatahub.io/v1alpha1
+kind: GuardrailsOrchestrator
+metadata:
+  name: gorch-sample
+  namespace: {{ .Release.Namespace }}
+spec:
+  enableBuiltInDetectors: true
+  enableGuardrailsGateway: true
+  guardrailsGatewayConfig: fms-orchestr8-config-gateway
+  orchestratorConfig: fms-orchestr8-config-nlp
+  otelExporter: {}
+  replicas: {{ .Values.orchestrator.replicas }}

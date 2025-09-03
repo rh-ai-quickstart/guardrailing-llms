@@ -1,0 +1,40 @@
+---
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    openshift.io/display-name: Llama 3.2 3b instruct
+    serving.kserve.io/deploymentMode: RawDeployment
+  name: {{ .Values.mainLLM.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    networking.kserve.io/visibility: exposed
+    opendatahub.io/dashboard: 'true'
+spec:
+  predictor:
+    automountServiceAccountToken: false
+    maxReplicas: 1
+    minReplicas: 1
+    model:
+      args:
+        - '--dtype=half'
+        - '--max-model-len=20000'
+        - '--gpu-memory-utilization=0.95'
+        - '--enable-chunked-prefill'
+        - '--enable-auto-tool-choice'
+        - '--tool-call-parser=llama3_json'
+        - '--chat-template=/app/data/template/tool_chat_template_llama3.2_json.jinja'
+      modelFormat:
+        name: vLLM
+      name: ''
+      resources:
+        limits:
+          cpu: '8'
+          memory: 10Gi
+          nvidia.com/gpu: '1'
+        requests:
+          cpu: '4'
+          memory: 8Gi
+          nvidia.com/gpu: '1'
+      runtime: {{ .Values.mainLLM.name }}
+      storageUri: {{ .Values.mainLLM.storageUri }}

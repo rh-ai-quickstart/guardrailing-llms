@@ -1,0 +1,90 @@
+---
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    openshift.io/display-name: gibberish-detector
+    serving.kserve.io/deploymentMode: RawDeployment
+  name: gibberish-detector
+  namespace: {{ .Release.Namespace }}
+  labels:
+    networking.kserve.io/visibility: exposed
+    opendatahub.io/dashboard: 'true'
+spec:
+  predictor:
+    automountServiceAccountToken: false
+    maxReplicas: 1
+    minReplicas: 1
+    model:
+      modelFormat:
+        name: guardrails-detector-hf-runtime
+      name: ''
+      resources:
+        limits:
+          cpu: '2'
+          memory: 8Gi
+        requests:
+          cpu: '1'
+          memory: 4Gi
+      runtime: gibberish-detector
+      storageUri: {{ .Values.detectors.gibberish.storageUri }}
+---
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    openshift.io/display-name: prompt-injection-detector
+    serving.kserve.io/deploymentMode: RawDeployment
+  name: prompt-injection-detector
+  namespace: {{ .Release.Namespace }}
+  labels:
+    networking.kserve.io/visibility: exposed
+    opendatahub.io/dashboard: 'true'
+spec:
+  predictor:
+    automountServiceAccountToken: false
+    maxReplicas: 1
+    minReplicas: 1
+    model:
+      modelFormat:
+        name: guardrails-detector-hf-runtime
+      name: ''
+      resources:
+        limits:
+          cpu: '2'
+          memory: 8Gi
+        requests:
+          cpu: '1'
+          memory: 4Gi
+      runtime: prompt-injection-detector
+      storageUri: {{ .Values.detectors.promptInjection.storageUri }}
+---
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    openshift.io/display-name: ibm-hate-and-profanity-detector
+    serving.kserve.io/deploymentMode: RawDeployment
+  name: ibm-hate-and-profanity-detector
+  namespace: {{ .Release.Namespace }}
+  labels:
+    networking.kserve.io/visibility: exposed
+    opendatahub.io/dashboard: 'true'
+spec:
+  predictor:
+    automountServiceAccountToken: false
+    maxReplicas: 1
+    minReplicas: 1
+    model:
+      modelFormat:
+        name: guardrails-detector-hf-runtime
+      name: ''
+      resources:
+        limits:
+          cpu: '2'
+          memory: 8Gi
+        requests:
+          cpu: '1'
+          memory: 4Gi
+      runtime: ibm-hate-and-profanity-detector
+      storageUri: {{ .Values.detectors.hateAndProfanity.storageUri }}

@@ -1,68 +1,86 @@
 # Guardrailing LLMs
 
-*Section is required. NOTE: any italicized or bracketed text should be deleted
-or replaced.*  
-
-*Replace title & this section with a high-level description
-of your quickstart.* 
-
-*Think of it as your elevator pitch. What is the quickstart? What does it do? Why
-should I bother deploying it?*
-
-*Need an example README? Look at:
-[vllm-cpu](https://github.com/rh-ai-quickstart/vllm-cpu)*
-
-*OR, [vLLM Tool Calling](https://github.com/rh-ai-quickstart/vllm-tool-calling)*
-
-*Lastly, include a link to the installation section so the user can start quickly.*
-
-*For example:* 
-
+Welcome to the LLM Guardrails quickstart!
+Use this to quickly deploy a comprehensive AI safety framework with TrustyAI orchestrator and multiple detector services.  
 To see how it's done, jump straight to [installation](#install). 
 
-## Table of contents
+## Detailed description 
 
-*Table of contents is optional, but recommended*
+The LLM Guardrails quickstart is a quick-start template for deploying a comprehensive AI safety framework within Red Hat OpenShift AI. It's designed to provide multiple layers of protection for LLM applications using TrustyAI's orchestrator and specialized detector services.
 
-## Detailed description
-*This section is required. This is your chance to describe the AI quickstart.*
+This quickstart includes a Helm chart for deploying:
 
-### See it in action 
+- A Llama 3.2 3B Instruct model with GPU acceleration.
+- Multiple AI safety detectors: gibberish detection, prompt injection detection, and hate/profanity detection.
+- TrustyAI GuardrailsOrchestrator for coordinating safety checks.
+- Configurable detection thresholds and routing policies.
 
-*This section is optional but recommended*
+Get started quickly with a protected LLM deployment featuring automated safety detection and content filtering.
 
 ### Architecture diagrams
 
-*Section is required. Put images in `assets/images` folder* 
+- TODO
+
+![Architecture diagram coming soon](assets/images)
 
 ### References 
 
-*Section required. Include links to supporting information, documentation, or
-learning materials.*
+- TODO
 
-## Requirements
+## Requirements 
 
-*Section required* 
+### Recommended hardware requirements 
+
+- GPU required for main LLM: +24GiB vRAM
+- CPU cores: 12+ cores total (4 for LLM + 8 for detectors)
+- Memory: 24Gi+ RAM total
+- Storage: 10Gi
 
 ### Minimum hardware requirements 
 
-*Section is required* 
+- GPU required for main LLM: 1 x NVIDIA GPU with 4GB+ VRAM  
+- CPU cores: 8+ cores total
+- Memory: 16Gi+ RAM total
+- Storage: 5Gi 
 
-### Required software 
+### Required software  
 
-*Section is required. What software dependencies do they need?* 
+- TODO
 
 ### Required permissions
 
-*Section is required. Describe the permissions the user will need. Cluster
-admin? Regular user?*
+- Standard user. No elevated cluster permissions required
 
 ## Install
 
-*Section is required. Include the explicit steps needed to deploy your
-quickstart. If screenshots are included, remember to put them in the
-`assets/images` folder.*
+**Please note before you start**
 
-## Uninstall 
+This example was tested on Red Hat OpenShift 4.16.24 & Red Hat OpenShift AI v2.16.2.  
 
-*Section required. Include explicit steps to cleanup quickstart.*
+### Clone
+
+```
+git clone https://github.com/rh-ai-quickstart/guardrailing-llms.git && \
+    cd guardrailing-llms/  
+```
+
+### Create the project
+
+```bash
+PROJECT="guardrails-demo"
+
+oc new-project ${PROJECT}
+``` 
+
+### Install with Helm
+
+```bash
+helm install guardrailing-llms helm/ \
+    --namespace ${PROJECT} 
+```
+
+## Uninstall
+
+```bash
+helm uninstall guardrailing-llms --namespace ${PROJECT} 
+```

@@ -4,6 +4,8 @@ kind: Role
 metadata:
   name: pod-exec
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 rules:
 - apiGroups: [""]
   resources: ["pods/exec"]
@@ -14,6 +16,8 @@ kind: RoleBinding
 metadata:
   name: guardrails-workbench-exec
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 subjects:
 - kind: ServiceAccount
   name: guardrails-workbench

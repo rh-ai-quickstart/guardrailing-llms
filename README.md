@@ -15,8 +15,6 @@ This quickstart includes a Helm chart for deploying:
 - TrustyAI GuardrailsOrchestrator for coordinating safety checks.
 - Configurable detection thresholds and routing policies.
 
-Get started quickly with a protected LLM deployment featuring automated safety detection and content filtering.
-
 ### Architecture diagrams
 
 - TODO
@@ -38,14 +36,16 @@ Get started quickly with a protected LLM deployment featuring automated safety d
 
 ### Minimum hardware requirements 
 
-- GPU required for main LLM: 1 x NVIDIA GPU with 4GB+ VRAM  
+- GPU required for main LLM: 1 x NVIDIA GPU with 16GB+ VRAM  
 - CPU cores: 8+ cores total
 - Memory: 16Gi+ RAM total
 - Storage: 5Gi 
 
 ### Required software  
 
-- TODO
+- Red Hat OpenShift 4.16+
+- Red Hat OpenShift AI 2.23
+- Dependencies for [Guardrails Operator](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.23/html/monitoring_data_science_models/configuring-the-guardrails-orchestrator-service_monitor)
 
 ### Required permissions
 
@@ -55,7 +55,7 @@ Get started quickly with a protected LLM deployment featuring automated safety d
 
 **Please note before you start**
 
-This example was tested on Red Hat OpenShift 4.16.24 & Red Hat OpenShift AI v2.16.2.  
+This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI v2.23.  
 
 ### Clone
 
@@ -71,6 +71,8 @@ PROJECT="guardrails-demo"
 
 oc new-project ${PROJECT}
 ``` 
+
+### Check 
 
 ### Install with Helm
 

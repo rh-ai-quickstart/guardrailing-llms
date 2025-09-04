@@ -15,7 +15,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: gp3-csi
   volumeMode: Filesystem
   annotations:
     argocd.argoproj.io/sync-wave: "0"

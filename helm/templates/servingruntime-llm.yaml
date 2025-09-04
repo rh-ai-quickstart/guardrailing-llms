@@ -3,13 +3,10 @@ apiVersion: serving.kserve.io/v1alpha1
 kind: ServingRuntime
 metadata:
   annotations:
-    opendatahub.io/accelerator-name: migrated-gpu
     opendatahub.io/apiProtocol: REST
     opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
-    opendatahub.io/runtime-version: v0.9.2.1
-    opendatahub.io/serving-runtime-scope: global
-    opendatahub.io/template-display-name: vLLM NVIDIA GPU ServingRuntime for KServe
-    opendatahub.io/template-name: vllm-cuda-runtime
+    opendatahub.io/template-display-name: vLLM ServingRuntime for KServe
+    opendatahub.io/template-name: vllm-runtime
     openshift.io/display-name: {{ .Values.mainLLM.name }}
   name: {{ .Values.mainLLM.name }}
   namespace: {{ .Release.Namespace }}
@@ -24,6 +21,28 @@ spec:
         - '--port=8080'
         - '--model=/mnt/models'
         - '--served-model-name={{.Name}}'
+        {{- if .Values.mainLLM.enableAutoToolChoice }}
+        - '--enable-auto-tool-choice'
+        {{- end }}
+        {{- if .Values.mainLLM.enableChunkedPrefill }}
+        - '--enable-chunked-prefill'
+        {{- end }}
+        {{- if .Values.mainLLM.toolCallParser }}
+        - '--tool-call-parser'
+        - {{ .Values.mainLLM.toolCallParser }}
+        {{- end }}
+        {{- if .Values.mainLLM.chatTemplate }}
+        - '--chat-template'
+        - {{ .Values.mainLLM.chatTemplate }}
+        {{- end }}
+        {{- if .Values.mainLLM.maxModelLen }}
+        - '--max-model-len'
+        - {{ .Values.mainLLM.maxModelLen | quote }}
+        {{- end }}
+        {{- if .Values.mainLLM.maxNumSeqs }}
+        - '--max-num-seqs'
+        - {{ .Values.mainLLM.maxNumSeqs | quote }}
+        {{- end }}
       command:
         - python
         - '-m'
@@ -31,7 +50,7 @@ spec:
       env:
         - name: HF_HOME
           value: /tmp/hf_home
-      image: 'quay.io/modh/vllm@sha256:db766445a1e3455e1bf7d16b008f8946fcbe9f277377af7abb81ae358805e7e2'
+      image: {{ .Values.mainLLM.image | default "quay.io/modh/vllm@sha256:0d55419f3d168fd80868a36ac89815dded9e063937a8409b7edf3529771383f3" }}
       name: kserve-container
       ports:
         - containerPort: 8080
@@ -43,9 +62,10 @@ spec:
   supportedModelFormats:
     - autoSelect: true
       name: vLLM
+  {{- if .Values.mainLLM.tolerations }}
   tolerations:
-    - key: nvidia.com/gpu
-      effect: NoSchedule
+    {{- toYaml .Values.mainLLM.tolerations | nindent 4 }}
+  {{- end }}
   volumes:
     - emptyDir:
         medium: Memory

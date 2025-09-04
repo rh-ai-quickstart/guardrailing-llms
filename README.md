@@ -35,7 +35,7 @@ See the interactive demo in `assets/healthcare-guardrails.ipynb`.
 
 ### References 
 
-- TODO
+- [Red Hat documentation](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.23/html/monitoring_data_science_models/configuring-the-guardrails-orchestrator-service_monitor)
 
 ## Requirements 
 

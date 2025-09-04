@@ -70,8 +70,7 @@ This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI v2.23
 ### Clone
 
 ```
-git clone https://github.com/rh-ai-quickstart/guardrailing-llms.git && \
-    cd guardrailing-llms/  
+git clone https://github.com/rh-ai-quickstart/guardrailing-llms.git && cd guardrailing-llms/  
 ```
 
 ### Create the project
@@ -87,8 +86,7 @@ oc new-project ${PROJECT}
 ### Install with Helm
 
 ```bash
-helm install guardrailing-llms helm/ \
-    --namespace ${PROJECT} 
+helm install guardrailing-llms helm/ --namespace ${PROJECT} 
 ```
 
 ## Uninstall

@@ -1,8 +1,10 @@
+{{- if and .Values.workbench.enabled .Values.workbench.gitRepo.enabled }}
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: clone-guardrails-repo
-  namespace: llm
+  name: {{ .Values.workbench.name }}-clone-repo
+  namespace: {{ .Release.Namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "2"
     argocd.argoproj.io/hook: Sync
@@ -11,7 +13,7 @@ spec:
   backoffLimit: 3
   template:
     spec:
-      serviceAccountName: guardrails-workbench
+      serviceAccountName: {{ .Values.workbench.name }}
       initContainers:
         - name: wait-for-workbench
           image: image-registry.openshift-image-registry.svc:5000/openshift/tools:latest
@@ -20,7 +22,7 @@ spec:
             - -ec
             - |
               echo "Waiting for workbench pod..."
-              while [ -z "$(oc get pods -n llm -l notebook-name=guardrails-workbench -o jsonpath='{.items[0].status.phase}' 2>/dev/null | grep Running)" ]; do
+              while [ -z "$(oc get pods -n {{ .Release.Namespace }} -l notebook-name={{ .Values.workbench.name }} -o jsonpath='{.items[0].status.phase}' 2>/dev/null | grep Running)" ]; do
                 sleep 2
               done
               echo "Workbench pod is running."
@@ -31,6 +33,7 @@ spec:
           args:
             - -ec
             - |
-              POD_NAME=$(oc get pods -n llm -l notebook-name=guardrails-workbench -o jsonpath='{.items[0].metadata.name}')
-              oc exec -n llm $POD_NAME -- bash -c "cd /opt/app-root/src && git clone https://github.com/rh-ai-quickstart/guardrailing-llms.git"
+              POD_NAME=$(oc get pods -n {{ .Release.Namespace }} -l notebook-name={{ .Values.workbench.name }} -o jsonpath='{.items[0].metadata.name}')
+              oc exec -n {{ .Release.Namespace }} $POD_NAME -- bash -c "cd /opt/app-root/src && git clone {{ .Values.workbench.gitRepo.url }}"
       restartPolicy: Never
+{{- end }}

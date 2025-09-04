@@ -1,10 +1,13 @@
+{{- if .Values.workbench.enabled }}
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: guardrails-workbench
-  namespace: llm
+  name: {{ .Values.workbench.name }}
+  namespace: {{ .Release.Namespace }}
   annotations:
     openshift.io/display-name: Guardrails Workbench PVC
+    argocd.argoproj.io/sync-wave: "0"
   labels:
     opendatahub.io/dashboard: "true"
   finalizers:
@@ -14,7 +17,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: {{ .Values.workbench.storage.size }}
   volumeMode: Filesystem
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
+{{- end }}

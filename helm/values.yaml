@@ -22,3 +22,21 @@ detectors:
 # Orchestrator settings
 orchestrator:
   replicas: 1
+
+# Workbench configuration
+workbench:
+  enabled: true
+  name: guardrails-workbench
+  image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/jupyter-minimal-cpu-py312-ubi9:2025.1
+  resources:
+    requests:
+      cpu: "1"
+      memory: 4Gi
+    limits:
+      cpu: "2"
+      memory: 8Gi
+  storage:
+    size: 1Gi
+  gitRepo:
+    url: https://github.com/rh-ai-quickstart/guardrailing-llms.git
+    enabled: true

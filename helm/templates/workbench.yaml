@@ -1,9 +1,10 @@
+{{- if .Values.workbench.enabled }}
 ---
 apiVersion: kubeflow.org/v1
 kind: Notebook
 metadata:
-  name: guardrails-workbench
-  namespace: llm
+  name: {{ .Values.workbench.name }}
+  namespace: {{ .Release.Namespace }}
   annotations:
     notebooks.opendatahub.io/inject-oauth: "true"
     opendatahub.io/image-display-name: Standard Data Science
@@ -12,15 +13,15 @@ spec:
   template:
     spec:
       containers:
-        - name: guardrails-workbench
-          image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/jupyter-minimal-cpu-py312-ubi9:2025.1
+        - name: {{ .Values.workbench.name }}
+          image: {{ .Values.workbench.image }}
           resources:
             requests:
-              cpu: "1"
-              memory: 4Gi
+              cpu: {{ .Values.workbench.resources.requests.cpu | quote }}
+              memory: {{ .Values.workbench.resources.requests.memory }}
             limits:
-              cpu: "2"
-              memory: 8Gi
+              cpu: {{ .Values.workbench.resources.limits.cpu | quote }}
+              memory: {{ .Values.workbench.resources.limits.memory }}
           volumeMounts:
             - name: workbench-pvc
               mountPath: /opt/app-root/src
@@ -31,13 +32,13 @@ spec:
                 --ServerApp.port=8888
                 --ServerApp.token=''
                 --ServerApp.password=''
-                --ServerApp.base_url=/notebook/llm/guardrails-workbench
+                --ServerApp.base_url=/notebook/{{ .Release.Namespace }}/{{ .Values.workbench.name }}
                 --ServerApp.quit_button=False
-                --ServerApp.tornado_settings={"user":"admin","hub_host":"https://rhods-dashboard-redhat-ods-applications.apps.cluster-dhd55.dhd55.sandbox754.opentlc.com","hub_prefix":"/projects/llm"}
             - name: JUPYTER_IMAGE
-              value: 'image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/jupyter-minimal-cpu-py312-ubi9:2025.1'
-      serviceAccountName: guardrails-workbench
+              value: {{ .Values.workbench.image | quote }}
+      serviceAccountName: {{ .Values.workbench.name }}
       volumes:
         - name: workbench-pvc
           persistentVolumeClaim:
-            claimName: guardrails-workbench
+            claimName: {{ .Values.workbench.name }}
+{{- end }}

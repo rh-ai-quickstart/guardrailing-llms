@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: guardrails-workbench
-          image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/s2i-generic-data-science-notebook:2024.2
+          image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/jupyter-minimal-cpu-py312-ubi9:2025.1
           resources:
             requests:
               cpu: "1"
@@ -25,6 +25,17 @@ spec:
             - name: workbench-pvc
               mountPath: /opt/app-root/src
           workingDir: /opt/app-root/src
+          env:
+            - name: NOTEBOOK_ARGS
+              value: |-
+                --ServerApp.port=8888
+                --ServerApp.token=''
+                --ServerApp.password=''
+                --ServerApp.base_url=/notebook/llm/guardrails-workbench
+                --ServerApp.quit_button=False
+                --ServerApp.tornado_settings={"user":"admin","hub_host":"https://rhods-dashboard-redhat-ods-applications.apps.cluster-dhd55.dhd55.sandbox754.opentlc.com","hub_prefix":"/projects/llm"}
+            - name: JUPYTER_IMAGE
+              value: 'image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/jupyter-minimal-cpu-py312-ubi9:2025.1'
       serviceAccountName: guardrails-workbench
       volumes:
         - name: workbench-pvc

@@ -9,34 +9,34 @@ data:
     chat_generation: 
       service:
         hostname: {{ .Values.mainLLM.name }}-predictor.{{ .Release.Namespace }}.svc.cluster.local
-        port: 80
+        port: {{ .Values.mainLLM.port }}
     detectors:
       regex:
         type: text_contents
         service:
             hostname: "127.0.0.1"
-            port: 8080
+            port: {{ .Values.detectors.regex.port }}
         chunker_id: whole_doc_chunker
         default_threshold: 0.5
       hap:
         type: text_contents
         service:
           hostname: ibm-hate-and-profanity-detector-predictor.{{ .Release.Namespace }}.svc.cluster.local
-          port: 8000
+          port: {{ .Values.detectors.hateAndProfanity.port }}
         chunker_id: whole_doc_chunker
         default_threshold: {{ .Values.detectors.hateAndProfanity.threshold }}
       prompt_injection:
         type: text_contents
         service:
           hostname: prompt-injection-detector-predictor.{{ .Release.Namespace }}.svc.cluster.local
-          port: 8000
+          port: {{ .Values.detectors.promptInjection.port }}
         chunker_id: whole_doc_chunker
         default_threshold: {{ .Values.detectors.promptInjection.threshold }}
       gibberish:
         type: text_contents
         service:
           hostname: gibberish-detector-predictor.{{ .Release.Namespace }}.svc.cluster.local
-          port: 8000
+          port: {{ .Values.detectors.gibberish.port }}
         chunker_id: whole_doc_chunker
         default_threshold: {{ .Values.detectors.gibberish.threshold }}
 ---
@@ -60,7 +60,7 @@ data:
   config.yaml: |
     orchestrator:   
       host: "localhost"
-      port: 8032
+      port: {{ .Values.orchestrator.port }}
     detectors:      
       - name: regex
         input: true 

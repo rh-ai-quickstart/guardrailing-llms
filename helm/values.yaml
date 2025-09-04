@@ -7,6 +7,7 @@ mainLLM:
   name: llama-32-3b-instruct
   storageUri: "oci://quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-3b-instruct"
   image: "quay.io/modh/vllm@sha256:0d55419f3d168fd80868a36ac89815dded9e063937a8409b7edf3529771383f3"
+  port: 8080
   
   # Enhanced vLLM features
   enableAutoToolChoice: true
@@ -26,16 +27,22 @@ detectors:
   gibberish:
     storageUri: "oci://quay.io/mmurakam/model-cars:gibberish-text-detector-v0.1.1"
     threshold: 0.35
+    port: 8000
   promptInjection:
     storageUri: "oci://quay.io/mmurakam/model-cars:deberta-v3-base-prompt-injection-v2-v0.1.0"
     threshold: 0.5
+    port: 8000
   hateAndProfanity:
     storageUri: "oci://quay.io/mmurakam/model-cars:granite-guardian-hap-38m-v0.1.0"
     threshold: 0.5
+    port: 8000
+  regex:
+    port: 8080
 
 # Orchestrator
 orchestrator:
   replicas: 1
+  port: 8032
 
 # Workbench configuration
 workbench:

@@ -70,7 +70,7 @@ This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI 2.23.
 ### Clone
 
 ```
-git clone https://github.com/rh-ai-quickstart/guardrailing-llms.git && cd guardrailing-llms/  
+git clone https://github.com/rh-ai-quickstart/guardrailing-llms.git && cd guardrailing-llms/
 ```
 
 ### Create the project

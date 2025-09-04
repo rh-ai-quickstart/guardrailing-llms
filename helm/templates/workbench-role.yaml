@@ -9,8 +9,15 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+<<<<<<< HEAD
   name: {{ .Values.workbench.name }}-pod-exec
   namespace: {{ .Release.Namespace }}
+=======
+  name: pod-exec
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+>>>>>>> 1117c9c2e3b32a20d3e2f18936ee52905e04eaec
 rules:
 - apiGroups: [""]
   resources: ["pods", "pods/exec"]
@@ -19,11 +26,21 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+<<<<<<< HEAD
   name: {{ .Values.workbench.name }}-exec
   namespace: {{ .Release.Namespace }}
 subjects:
 - kind: ServiceAccount
   name: {{ .Values.workbench.name }}
+=======
+  name: guardrails-workbench-exec
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+subjects:
+- kind: ServiceAccount
+  name: guardrails-workbench
+>>>>>>> 1117c9c2e3b32a20d3e2f18936ee52905e04eaec
   namespace: {{ .Release.Namespace }}
 roleRef:
   kind: Role

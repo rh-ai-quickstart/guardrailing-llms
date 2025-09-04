@@ -2,12 +2,12 @@
 
 # Namespace will be automatically set by Helm to {{ .Release.Namespace }}
 
-# Main LLM Configuration
+# Main LLM
 mainLLM:
   name: llama-32-3b-instruct
   storageUri: "oci://quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-3b-instruct"
 
-# Detector Models
+# Detectors
 detectors:
   gibberish:
     storageUri: "oci://quay.io/mmurakam/model-cars:gibberish-text-detector-v0.1.1"
@@ -19,10 +19,11 @@ detectors:
     storageUri: "oci://quay.io/mmurakam/model-cars:granite-guardian-hap-38m-v0.1.0"
     threshold: 0.5
 
-# Orchestrator settings
+# Orchestrator
 orchestrator:
   replicas: 1
 
+<<<<<<< HEAD
 # Workbench configuration
 workbench:
   enabled: true
@@ -40,3 +41,7 @@ workbench:
   gitRepo:
     url: https://github.com/rh-ai-quickstart/guardrailing-llms.git
     enabled: true
+=======
+# Workbench
+clusterdomainurl: cluster.example.com
+>>>>>>> 1117c9c2e3b32a20d3e2f18936ee52905e04eaec

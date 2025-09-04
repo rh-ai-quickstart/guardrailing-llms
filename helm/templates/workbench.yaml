@@ -1,4 +1,3 @@
-{{- if .Values.workbench.enabled }}
 ---
 apiVersion: kubeflow.org/v1
 kind: Notebook
@@ -34,6 +33,7 @@ spec:
                 --ServerApp.password=''
                 --ServerApp.base_url=/notebook/{{ .Release.Namespace }}/{{ .Values.workbench.name }}
                 --ServerApp.quit_button=False
+                --ServerApp.tornado_settings={"user":"admin","hub_host":"https://rhods-dashboard-redhat-ods-applications.apps.cluster-dhd55.dhd55.sandbox754.opentlc.com","hub_prefix":"/projects/llm"}
             - name: JUPYTER_IMAGE
               value: {{ .Values.workbench.image | quote }}
       serviceAccountName: {{ .Values.workbench.name }}

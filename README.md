@@ -65,7 +65,7 @@ See the interactive demo in `assets/healthcare-guardrails.ipynb`.
 
 **Please note before you start**
 
-This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI 2.23.  
+This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI 2.23.0.  
 
 ### Clone
 

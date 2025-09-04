@@ -83,6 +83,8 @@ oc new-project ${PROJECT}
 
 ### Check 
 
+- TODO
+
 ### Install with Helm
 
 ```bash

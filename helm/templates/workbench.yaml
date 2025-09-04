@@ -33,7 +33,7 @@ spec:
                 --ServerApp.password=''
                 --ServerApp.base_url=/notebook/llm/guardrails-workbench
                 --ServerApp.quit_button=False
-                --ServerApp.tornado_settings={"user":"admin","hub_host":"https://rhods-dashboard-redhat-ods-applications.apps.cluster-dhd55.dhd55.sandbox754.opentlc.com","hub_prefix":"/projects/llm"}
+                --ServerApp.tornado_settings={"user":"admin","hub_host":"https://rhods-dashboard-redhat-ods-applications.apps.{{ .Values.clusterdomainurl }}","hub_prefix":"/projects/llm"}
             - name: JUPYTER_IMAGE
               value: 'image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/jupyter-minimal-cpu-py312-ubi9:2025.1'
       serviceAccountName: guardrails-workbench

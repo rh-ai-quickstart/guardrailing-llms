@@ -15,6 +15,18 @@ This quickstart includes a Helm chart for deploying:
 - TrustyAI GuardrailsOrchestrator for coordinating safety checks.
 - Configurable detection thresholds and routing policies.
 
+## Healthcare Use Case Example
+
+This quickstart includes a healthcare AI assistant demo that shows how guardrails protect HIPAA-compliant applications.
+
+The demo tests a patient services AI with four protection layers:
+1. **PII Detection** - Protects Social Security Numbers and medical IDs
+2. **Content Moderation** - Blocks inappropriate language  
+3. **Prompt Injection Protection** - Prevents system manipulation
+4. **Gibberish Detection** - Filters out nonsense queries
+
+See the interactive demo in `assets/healthcare-guardrails.ipynb`.
+
 ### Architecture diagrams
 
 - TODO

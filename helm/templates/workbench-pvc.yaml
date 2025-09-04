@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: guardrails-workbench
-  namespace: llm
+  namespace: {{ .Release.Namespace }}
   annotations:
     openshift.io/display-name: Guardrails Workbench PVC
   labels:

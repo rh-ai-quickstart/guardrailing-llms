@@ -23,7 +23,6 @@ detectors:
 orchestrator:
   replicas: 1
 
-<<<<<<< HEAD
 # Workbench configuration
 workbench:
   enabled: true
@@ -41,7 +40,6 @@ workbench:
   gitRepo:
     url: https://github.com/rh-ai-quickstart/guardrailing-llms.git
     enabled: true
-=======
-# Workbench
+
+# Cluster configuration  
 clusterdomainurl: cluster.example.com
->>>>>>> 1117c9c2e3b32a20d3e2f18936ee52905e04eaec

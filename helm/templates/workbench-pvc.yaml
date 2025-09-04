@@ -3,11 +3,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-<<<<<<< HEAD
   name: {{ .Values.workbench.name }}
-=======
-  name: guardrails-workbench
->>>>>>> 1117c9c2e3b32a20d3e2f18936ee52905e04eaec
   namespace: {{ .Release.Namespace }}
   annotations:
     openshift.io/display-name: Guardrails Workbench PVC

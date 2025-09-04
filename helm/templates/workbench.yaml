@@ -1,9 +1,8 @@
----
 apiVersion: kubeflow.org/v1
 kind: Notebook
 metadata:
   name: guardrails-workbench
-  namespace: llm
+  namespace: {{ .Release.Namespace }}
   annotations:
     notebooks.opendatahub.io/inject-oauth: "true"
     opendatahub.io/image-display-name: Standard Data Science
@@ -31,9 +30,9 @@ spec:
                 --ServerApp.port=8888
                 --ServerApp.token=''
                 --ServerApp.password=''
-                --ServerApp.base_url=/notebook/llm/guardrails-workbench
+                --ServerApp.base_url=/notebook/{{ .Release.Namespace }}/guardrails-workbench
                 --ServerApp.quit_button=False
-                --ServerApp.tornado_settings={"user":"admin","hub_host":"https://rhods-dashboard-redhat-ods-applications.apps.{{ .Values.clusterdomainurl }}","hub_prefix":"/projects/llm"}
+                --ServerApp.tornado_settings={"user":"admin","hub_host":"https://rhods-dashboard-redhat-ods-applications.apps.{{ .Values.clusterdomainurl }}","hub_prefix":"/projects/{{ .Release.Namespace }}"}
             - name: JUPYTER_IMAGE
               value: 'image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/jupyter-minimal-cpu-py312-ubi9:2025.1'
       serviceAccountName: guardrails-workbench

@@ -29,7 +29,7 @@ See the interactive demo in `assets/healthcare-guardrails.ipynb`.
 
 ### Architecture diagrams
 
-![architecture.png](images/architecture.png)
+![architecture.png](assets/images/architecture.png)
 
 ### References 
 

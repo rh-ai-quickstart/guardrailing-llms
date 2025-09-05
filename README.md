@@ -112,9 +112,10 @@ Once inside the dashboard, navigate to Data Science Projects -> guardrails-demo 
 ![OpenShift AI Projects](assets/images/wb1.png)
 
 Inside the project you can see Workbenches, open up the one for guardrails-workbench.
-![OpenShift AI Projects](assets/images/wb2.png)
+![OpenShift AI WB](assets/images/wb2.png)
 
 Open the workbench, inside of the Jupyter Notebook folder, you'll see the `guardrailing-llms` repository already cloned, go to `assets/healthcare-guardrails.ipynb` and follow the instructions.
+![OpenShift AI Jupyter Notebook](assets/images/wb3.png)
 
 Enjoy!
 

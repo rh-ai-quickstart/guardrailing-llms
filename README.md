@@ -81,15 +81,42 @@ PROJECT="guardrails-demo"
 oc new-project ${PROJECT}
 ``` 
 
-### Check 
-
-- TODO
-
 ### Install with Helm
 
 ```bash
 helm install guardrailing-llms helm/ --namespace ${PROJECT} 
 ```
+
+### Wait for pods
+
+```md
+oc get pod -n ${PROJECT}
+NAME                                                         READY   STATUS      RESTARTS   AGE
+gibberish-detector-predictor-578fc59776-www4s                2/2     Running     0          25h
+gorch-sample-5f95f587fd-wmk4x                                3/3     Running     0          51m
+guardrails-workbench-0                                       2/2     Running     0          93m
+guardrails-workbench-clone-repo-96jhd                        0/1     Completed   0          93m
+ibm-hate-and-profanity-detector-predictor-846758cfb5-wnlnd   2/2     Running     0          25h
+llama-32-3b-instruct-predictor-c8d55bd58-lctjn               2/2     Running     0          18m
+prompt-injection-detector-predictor-7d784957f9-f2x5g         2/2     Running     0          25h
+```
+
+### Test
+
+You can get the OpenShift AI Dashboard URL by:
+```bash
+oc get routes rhods-dashboard -n redhat-ods-applications
+```
+
+Once inside the dashboard, navigate to Data Science Projects -> guardrails-demo (or what you called your ${PROJECT} if you changed from default).
+![OpenShift AI Projects](assets/images/wb1.png)
+
+Inside the project you can see Workbenches, open up the one for guardrails-workbench.
+![OpenShift AI Projects](assets/images/wb-2.png)
+
+Open the workbench, inside of the Jupyter Notebook folder, you'll see the `guardrailing-llms` repository already cloned, go to `assets/healthcare-guardrails.ipynb` and follow the instructions.
+
+Enjoy!
 
 ## Uninstall
 

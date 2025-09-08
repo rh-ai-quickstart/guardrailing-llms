@@ -53,13 +53,14 @@ See the interactive demo in `assets/healthcare-guardrails.ipynb`.
 
 ### Required software  
 
-- Red Hat OpenShift 4.16+
-- Red Hat OpenShift AI 2.23
-- Dependencies for [Guardrails Operator](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.23/html/monitoring_data_science_models/configuring-the-guardrails-orchestrator-service_monitor)
+- Red Hat OpenShift
+- Red Hat OpenShift Service Mesh 2
+- Red Hat OpenShift AI
+    - KServe needs to be enabled
 
 ### Required permissions
 
-- Standard user. No elevated cluster permissions required
+- Cluster admin permissions are required
 
 ## Install
 
@@ -89,8 +90,12 @@ helm install guardrailing-llms helm/ --namespace ${PROJECT}
 
 ### Wait for pods
 
-```md
+```bash
 oc get pod -n ${PROJECT}
+```
+
+```
+(output)
 NAME                                                         READY   STATUS      RESTARTS   AGE
 gibberish-detector-predictor-578fc59776-www4s                2/2     Running     0          25h
 gorch-sample-5f95f587fd-wmk4x                                3/3     Running     0          51m

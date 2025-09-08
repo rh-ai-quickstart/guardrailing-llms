@@ -7,7 +7,9 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
     notebooks.opendatahub.io/inject-oauth: "true"
-    opendatahub.io/image-display-name: Standard Data Science
+    notebooks.opendatahub.io/last-image-selection: 'jupyter-minimal-cpu-py312-ubi9:2025.1'
+    notebooks.opendatahub.io/last-image-version-git-commit-selection: d3137ca
+    opendatahub.io/image-display-name: Jupyter | Minimal | CPU | Python 3.12
     argocd.argoproj.io/sync-wave: "1"
 spec:
   template:

@@ -52,7 +52,7 @@ workbench:
   resources:
     requests:
       cpu: "1"
-      memory: 4Gi
+      memory: 8Gi
     limits:
       cpu: "2"
       memory: 8Gi

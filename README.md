@@ -60,7 +60,7 @@ See the interactive demo in `assets/healthcare-guardrails.ipynb`.
 
 ### Required permissions
 
-- Standard user. No elevated cluster permissions required
+- Cluster admin permissions are required
 
 ## Install
 

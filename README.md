@@ -25,7 +25,17 @@ The demo tests a patient services AI with four protection layers:
 3. **Prompt Injection Protection** - Prevents system manipulation
 4. **Gibberish Detection** - Filters out nonsense queries
 
-See the interactive demo in `assets/healthcare-guardrails.ipynb`.
+For example, here's how PII detection works in action:
+
+![diagram.png](assets/images/wb0.png)
+
+Explore the complete interactive demo in `assets/healthcare-guardrails.ipynb`.
+
+## Arcade Demo
+
+Short on time or don't have an environment? No problem! Try our step-by-step Arcade Demo for a guided walkthrough.
+
+*Coming soon*
 
 ### Architecture diagrams
 

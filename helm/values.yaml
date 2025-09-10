@@ -6,7 +6,7 @@
 mainLLM:
   name: llama-32-3b-instruct
   storageUri: "oci://quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-3b-instruct"
-  image: "quay.io/modh/vllm@sha256:0d55419f3d168fd80868a36ac89815dded9e063937a8409b7edf3529771383f3"
+  image: "quay.io/modh/vllm@sha256:db766445a1e3455e1bf7d16b008f8946fcbe9f277377af7abb81ae358805e7e2"
   port: 8080
   
   # Enhanced vLLM features

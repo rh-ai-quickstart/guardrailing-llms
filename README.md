@@ -15,7 +15,7 @@ This quickstart includes a Helm chart for deploying:
 - TrustyAI GuardrailsOrchestrator for coordinating safety checks.
 - Configurable detection thresholds and routing policies.
 
-## Healthcare Use Case Example
+## Healthcare use case example
 
 This quickstart includes a healthcare AI assistant demo that shows how guardrails protect HIPAA-compliant applications.
 
@@ -31,7 +31,7 @@ For example, here's how PII detection works in action:
 
 Explore the complete interactive demo in `assets/healthcare-guardrails.ipynb`.
 
-## Arcade Demo
+## Arcade demo
 
 Short on time or don't have an environment? No problem! Try our step-by-step Arcade Demo for a guided walkthrough.
 
@@ -124,12 +124,15 @@ oc get routes rhods-dashboard -n redhat-ods-applications
 ```
 
 Once inside the dashboard, navigate to Data Science Projects -> guardrails-demo (or what you called your ${PROJECT} if you changed from default).
+
 ![OpenShift AI Projects](assets/images/wb1.png)
 
 Inside the project you can see Workbenches, open up the one for guardrails-workbench.
+
 ![OpenShift AI WB](assets/images/wb2.png)
 
 Open the workbench, inside of the Jupyter Notebook folder, you'll see the `guardrailing-llms` repository already cloned, go to `assets/healthcare-guardrails.ipynb` and follow the instructions.
+
 ![OpenShift AI Jupyter Notebook](assets/images/wb3.png)
 
 Enjoy!

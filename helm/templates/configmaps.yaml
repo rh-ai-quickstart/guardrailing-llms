@@ -6,7 +6,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   config.yaml: |
-    chat_generation: 
+    chat_generation:
       service:
         hostname: {{ .Values.mainLLM.name }}-predictor.{{ .Release.Namespace }}.svc.cluster.local
         port: {{ .Values.mainLLM.port }}
@@ -58,12 +58,12 @@ metadata:
     app: fmstack-nlp
 data:
   config.yaml: |
-    orchestrator:   
+    orchestrator:
       host: "localhost"
       port: {{ .Values.orchestrator.port }}
-    detectors:      
+    detectors:
       - name: regex
-        input: true 
+        input: true
         output: true
         detector_params:
           regex:
@@ -81,7 +81,7 @@ data:
         input: true
         output: true
         detector_params: {}
-    routes:         
+    routes:
       - name: all
         detectors:
           - regex

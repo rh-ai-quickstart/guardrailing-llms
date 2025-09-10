@@ -56,7 +56,7 @@ Short on time or don't have an environment? No problem! Try our step-by-step Arc
 
 ### Minimum hardware requirements 
 
-- GPU required for main LLM: 1 x NVIDIA GPU with 16GB+ VRAM  
+- GPU required for main LLM: 1 x NVIDIA GPU with 24GiB vRAM
 - CPU cores: 8+ cores total
 - Memory: 16Gi+ RAM total
 - Storage: 5Gi 

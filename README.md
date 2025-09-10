@@ -78,13 +78,13 @@ Short on time or don't have an environment? No problem! Try our step-by-step Arc
 
 This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI 2.23.0.  
 
-### Clone
+### Clone the repository
 
 ```
 git clone https://github.com/rh-ai-quickstart/guardrailing-llms.git && cd guardrailing-llms/
 ```
 
-### Create the project
+### Create a new project
 
 ```bash
 PROJECT="guardrails-demo"
@@ -98,14 +98,14 @@ oc new-project ${PROJECT}
 helm install guardrailing-llms helm/ --namespace ${PROJECT} 
 ```
 
-### Wait for pods
+### Wait for the pods to be ready
 
 ```bash
 oc get pod -n ${PROJECT}
 ```
 
-```
-(output)
+You should see an output similar to:
+<pre>
 NAME                                                         READY   STATUS      RESTARTS   AGE
 gibberish-detector-predictor-578fc59776-www4s                2/2     Running     0          25h
 gorch-sample-5f95f587fd-wmk4x                                3/3     Running     0          51m
@@ -114,7 +114,7 @@ guardrails-workbench-clone-repo-96jhd                        0/1     Completed  
 ibm-hate-and-profanity-detector-predictor-846758cfb5-wnlnd   2/2     Running     0          25h
 llama-32-3b-instruct-predictor-c8d55bd58-lctjn               2/2     Running     0          18m
 prompt-injection-detector-predictor-7d784957f9-f2x5g         2/2     Running     0          25h
-```
+</pre>
 
 ### Test
 

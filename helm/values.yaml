@@ -8,7 +8,7 @@ mainLLM:
   storageUri: "oci://quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-3b-instruct"
   image: "quay.io/modh/vllm@sha256:db766445a1e3455e1bf7d16b008f8946fcbe9f277377af7abb81ae358805e7e2"
   port: 8080
-  
+
   # Enhanced vLLM features
   enableAutoToolChoice: true
   enableChunkedPrefill: true
@@ -16,7 +16,7 @@ mainLLM:
   chatTemplate: /app/data/template/tool_chat_template_llama3.2_json.jinja
   maxModelLen: 32768
   maxNumSeqs: 8
-  
+
   # Optional GPU tolerations
   tolerations:
     - key: nvidia.com/gpu
@@ -62,5 +62,5 @@ workbench:
     url: https://github.com/rh-ai-quickstart/guardrailing-llms.git
     enabled: true
 
-# Cluster configuration  
+# Cluster configuration
 clusterdomainurl: cluster.example.com

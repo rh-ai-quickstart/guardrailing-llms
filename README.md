@@ -1,23 +1,14 @@
-# Guardrailing LLMs
+# Safeguard private data with LLM guardrails
 
-Welcome to the LLM Guardrails quickstart!
-Use this to quickly deploy a comprehensive AI safety framework with TrustyAI orchestrator and multiple detector services.
+Add an AI safety framework with TrustyAI orchestrator and multiple detector
+services to help safeguard your private healthcare data with multiple layers of
+protection.
 
 
 ## Detailed description 
 
-The LLM Guardrails quickstart is a quick-start template for deploying a comprehensive AI safety framework within Red Hat OpenShift AI. It's designed to provide multiple layers of protection for LLM applications using TrustyAI's orchestrator and specialized detector services.
-
-This quickstart includes a Helm chart for deploying:
-
-- A Llama 3.2 3B Instruct model with GPU acceleration.
-- Multiple AI safety detectors: gibberish detection, prompt injection detection, and hate/profanity detection.
-- TrustyAI GuardrailsOrchestrator for coordinating safety checks.
-- Configurable detection thresholds and routing policies.
-
-## Healthcare use case example
-
-This quickstart includes a healthcare AI assistant demo that shows how guardrails protect HIPAA-compliant applications.
+This quickstart includes a healthcare AI assistant demo showing how
+guardrails could help protect HIPAA-compliant applications.
 
 The demo tests a patient services AI with four protection layers:
 1. **PII Detection** - Protects Social Security Numbers and medical IDs
@@ -30,6 +21,17 @@ For example, here's how PII detection works in action:
 ![diagram.png](docs/images/wb0.png)
 
 Explore the complete interactive demo in `docs/healthcare-guardrails.ipynb`.
+
+The LLM Guardrails quickstart is a quick-start template for deploying multiple layers of protection for LLM applications using TrustyAI's orchestrator and specialized detector services.
+
+This quickstart includes a Helm chart for deploying:
+
+- A Llama 3.2 3B Instruct model with GPU acceleration.
+- Multiple AI safety detectors: gibberish detection, prompt injection detection, and hate/profanity detection.
+- TrustyAI GuardrailsOrchestrator for coordinating safety checks.
+- Configurable detection thresholds and routing policies.
+
+
 
 <!-- ## Arcade demo -->
 

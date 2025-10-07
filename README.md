@@ -1,8 +1,8 @@
 # Guardrailing LLMs
 
 Welcome to the LLM Guardrails quickstart!
-Use this to quickly deploy a comprehensive AI safety framework with TrustyAI orchestrator and multiple detector services.  
-To see how it's done, jump straight to [installation](#install). 
+Use this to quickly deploy a comprehensive AI safety framework with TrustyAI orchestrator and multiple detector services.
+
 
 ## Detailed description 
 
@@ -31,19 +31,16 @@ For example, here's how PII detection works in action:
 
 Explore the complete interactive demo in `docs/healthcare-guardrails.ipynb`.
 
-## Arcade demo
+<!-- ## Arcade demo -->
 
-Short on time or don't have an environment? No problem! Try our step-by-step Arcade Demo for a guided walkthrough.
+<!-- Short on time or don't have an environment? No problem! Try our step-by-step Arcade Demo for a guided walkthrough. -->
 
-*Coming soon*
+<!-- *Coming soon* -->
 
 ### Architecture diagrams
 
 ![architecture.png](docs/images/architecture.png)
 
-### References 
-
-- [Red Hat documentation](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.23/html/monitoring_data_science_models/configuring-the-guardrails-orchestrator-service_monitor)
 
 ## Requirements 
 
@@ -61,22 +58,22 @@ Short on time or don't have an environment? No problem! Try our step-by-step Arc
 - Memory: 16Gi+ RAM total
 - Storage: 5Gi 
 
-### Required software  
+### Minimum software requirements
 
-- Red Hat OpenShift
+- Red Hat OpenShift 4.19.9
 - Red Hat OpenShift Service Mesh 2
-- Red Hat OpenShift AI
+- Red Hat OpenShift AI 2.23.0
     - KServe needs to be enabled
 
-### Required permissions
+**Please note before you start**
+
+This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI 2.23.0.
+
+### Required user permissions
 
 - Cluster admin permissions are required
 
 ## Install
-
-**Please note before you start**
-
-This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI 2.23.0.  
 
 ### Clone the repository
 
@@ -95,7 +92,7 @@ oc new-project ${PROJECT}
 ### Install with Helm
 
 ```bash
-helm install guardrailing-llms helm/ --namespace ${PROJECT} 
+helm install ${PROJECT} helm/ --namespace ${PROJECT} 
 ```
 
 ### Wait for the pods to be ready
@@ -137,8 +134,12 @@ Open the workbench, inside of the Jupyter Notebook folder, you'll see the `guard
 
 Enjoy!
 
-## Uninstall
+### Delete
 
 ```bash
-helm uninstall guardrailing-llms --namespace ${PROJECT} 
+helm uninstall ${PROJECT} --namespace ${PROJECT} 
 ```
+
+## References 
+
+- [Red Hat documentation](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.23/html/monitoring_data_science_models/configuring-the-guardrails-orchestrator-service_monitor)

@@ -1,8 +1,7 @@
 # Safeguard private data with LLM guardrails
 
-Add an AI safety framework with TrustyAI orchestrator and multiple detector
-services to help safeguard your private healthcare data with multiple layers of
-protection.
+Add an AI safety framework with TrustyAI and multiple detector services to help
+safeguard your private healthcare data with multiple layers of protection.
 
 
 ## Detailed description 

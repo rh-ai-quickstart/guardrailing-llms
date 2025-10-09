@@ -1,23 +1,13 @@
-# Guardrailing LLMs
+# Safeguard private data with LLM guardrails
 
-Welcome to the LLM Guardrails quickstart!
-Use this to quickly deploy a comprehensive AI safety framework with TrustyAI orchestrator and multiple detector services.  
-To see how it's done, jump straight to [installation](#install). 
+Add an AI safety framework with TrustyAI and detector services to help
+safeguard your private healthcare data with multiple layers of protection.
+
 
 ## Detailed description 
 
-The LLM Guardrails quickstart is a quick-start template for deploying a comprehensive AI safety framework within Red Hat OpenShift AI. It's designed to provide multiple layers of protection for LLM applications using TrustyAI's orchestrator and specialized detector services.
-
-This quickstart includes a Helm chart for deploying:
-
-- A Llama 3.2 3B Instruct model with GPU acceleration.
-- Multiple AI safety detectors: gibberish detection, prompt injection detection, and hate/profanity detection.
-- TrustyAI GuardrailsOrchestrator for coordinating safety checks.
-- Configurable detection thresholds and routing policies.
-
-## Healthcare use case example
-
-This quickstart includes a healthcare AI assistant demo that shows how guardrails protect HIPAA-compliant applications.
+This quickstart includes a healthcare AI assistant demo showing how
+guardrails could help protect HIPAA-compliant applications.
 
 The demo tests a patient services AI with four protection layers:
 1. **PII Detection** - Protects Social Security Numbers and medical IDs
@@ -27,23 +17,31 @@ The demo tests a patient services AI with four protection layers:
 
 For example, here's how PII detection works in action:
 
-![diagram.png](assets/images/wb0.png)
+![diagram.png](docs/images/wb0.png)
 
-Explore the complete interactive demo in `assets/healthcare-guardrails.ipynb`.
+Explore the complete interactive demo in `docs/healthcare-guardrails.ipynb`.
 
-## Arcade demo
+The LLM Guardrails quickstart is a quick-start template for deploying multiple layers of protection for LLM applications using TrustyAI's orchestrator and specialized detector services.
 
-Short on time or don't have an environment? No problem! Try our step-by-step Arcade Demo for a guided walkthrough.
+This quickstart includes a Helm chart for deploying:
 
-*Coming soon*
+- A Llama 3.2 3B Instruct model with GPU acceleration.
+- Multiple AI safety detectors: gibberish detection, prompt injection detection, and hate/profanity detection.
+- TrustyAI GuardrailsOrchestrator for coordinating safety checks.
+- Configurable detection thresholds and routing policies.
+
+
+
+<!-- ## Arcade demo -->
+
+<!-- Short on time or don't have an environment? No problem! Try our step-by-step Arcade Demo for a guided walkthrough. -->
+
+<!-- *Coming soon* -->
 
 ### Architecture diagrams
 
-![architecture.png](assets/images/architecture.png)
+![architecture.png](docs/images/architecture.png)
 
-### References 
-
-- [Red Hat documentation](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.23/html/monitoring_data_science_models/configuring-the-guardrails-orchestrator-service_monitor)
 
 ## Requirements 
 
@@ -61,22 +59,22 @@ Short on time or don't have an environment? No problem! Try our step-by-step Arc
 - Memory: 16Gi+ RAM total
 - Storage: 5Gi 
 
-### Required software  
+### Minimum software requirements
 
-- Red Hat OpenShift
+- Red Hat OpenShift 4.19.9
 - Red Hat OpenShift Service Mesh 2
-- Red Hat OpenShift AI
+- Red Hat OpenShift AI 2.23.0
     - KServe needs to be enabled
 
-### Required permissions
+**Please note before you start**
+
+This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI 2.23.0.
+
+### Required user permissions
 
 - Cluster admin permissions are required
 
 ## Install
-
-**Please note before you start**
-
-This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI 2.23.0.  
 
 ### Clone the repository
 
@@ -95,7 +93,7 @@ oc new-project ${PROJECT}
 ### Install with Helm
 
 ```bash
-helm install guardrailing-llms helm/ --namespace ${PROJECT} 
+helm install ${PROJECT} helm/ --namespace ${PROJECT} 
 ```
 
 ### Wait for the pods to be ready
@@ -125,20 +123,31 @@ oc get routes rhods-dashboard -n redhat-ods-applications
 
 Once inside the dashboard, navigate to Data Science Projects -> guardrails-demo (or what you called your ${PROJECT} if you changed from default).
 
-![OpenShift AI Projects](assets/images/wb1.png)
+![OpenShift AI Projects](docs/images/wb1.png)
 
 Inside the project you can see Workbenches, open up the one for guardrails-workbench.
 
-![OpenShift AI WB](assets/images/wb2.png)
+![OpenShift AI WB](docs/images/wb2.png)
 
-Open the workbench, inside of the Jupyter Notebook folder, you'll see the `guardrailing-llms` repository already cloned, go to `assets/healthcare-guardrails.ipynb` and follow the instructions.
+Open the workbench, inside of the Jupyter Notebook folder, you'll see the `guardrailing-llms` repository already cloned, go to `docs/healthcare-guardrails.ipynb` and follow the instructions.
 
-![OpenShift AI Jupyter Notebook](assets/images/wb3.png)
+![OpenShift AI Jupyter Notebook](docs/images/wb3.png)
 
 Enjoy!
 
-## Uninstall
+### Delete
 
 ```bash
-helm uninstall guardrailing-llms --namespace ${PROJECT} 
+helm uninstall ${PROJECT} --namespace ${PROJECT} 
 ```
+
+## References 
+
+- [Red Hat documentation](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.23/html/monitoring_data_science_models/configuring-the-guardrails-orchestrator-service_monitor)
+
+
+## Tags 
+
+* **Industry:** Healthcare
+* **Product:** OpenShift AI 
+* **Use case:** PII detection 

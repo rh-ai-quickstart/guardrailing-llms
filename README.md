@@ -144,3 +144,10 @@ helm uninstall ${PROJECT} --namespace ${PROJECT}
 ## References 
 
 - [Red Hat documentation](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.23/html/monitoring_data_science_models/configuring-the-guardrails-orchestrator-service_monitor)
+
+
+## Tags 
+
+* **Industry:** Healthcare
+* **Product:** OpenShift AI 
+* **Use case:** PII detection 

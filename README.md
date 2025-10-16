@@ -1,8 +1,6 @@
-# Safeguard private data with LLM guardrails
+# Deploy a security-focused AI assistant
 
-Add an AI safety framework with TrustyAI and detector services to help
-safeguard your private healthcare data with multiple layers of protection.
-
+Build a healthcare AI assistant that ensures your large language model has multiple layers of protection, including PII detection and content moderation.
 
 ## Detailed description 
 

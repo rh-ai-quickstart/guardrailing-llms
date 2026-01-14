@@ -1,4 +1,4 @@
-# Deploy a security-focused AI assistant
+# Deploy a privacy-focused AI assistant
 
 Build a healthcare AI assistant that ensures your large language model has multiple layers of protection, including PII detection and content moderation.
 

@@ -28,14 +28,6 @@ This quickstart includes a Helm chart for deploying:
 - TrustyAI GuardrailsOrchestrator for coordinating safety checks.
 - Configurable detection thresholds and routing policies.
 
-
-
-<!-- ## Arcade demo -->
-
-<!-- Short on time or don't have an environment? No problem! Try our step-by-step Arcade Demo for a guided walkthrough. -->
-
-<!-- *Coming soon* -->
-
 ### Architecture diagrams
 
 ![architecture.png](docs/images/architecture.png)
@@ -45,28 +37,25 @@ This quickstart includes a Helm chart for deploying:
 
 ### Recommended hardware requirements 
 
-- GPU required for main LLM: +24GiB vRAM
-- CPU cores: 12+ cores total (4 for LLM + 8 for detectors)
+- GPU with +24GiB vRAM for main LLM
+- CPU cores: 12+ cores total (4 for LLM + 8 for detectors) with 4th Gen Xeon® Scalable® processors or newer
 - Memory: 24Gi+ RAM total
 - Storage: 10Gi
 
 ### Minimum hardware requirements 
 
-- GPU required for main LLM: 1 x NVIDIA GPU with 24GiB vRAM
+- NVIDIA GPU with 24GiB vRAM required for main LLM
 - CPU cores: 8+ cores total
 - Memory: 16Gi+ RAM total
 - Storage: 5Gi 
 
 ### Minimum software requirements
 
-- Red Hat OpenShift 4.19.9
-- Red Hat OpenShift Service Mesh 2
-- Red Hat OpenShift AI 2.23.0
+- Red Hat OpenShift 4.19+
+- Red Hat OpenShift Service Mesh 3+
+- Red Hat OpenShift AI 3.4.0+
     - KServe needs to be enabled
-
-**Please note before you start**
-
-This example was tested on Red Hat OpenShift 4.19.9 & Red Hat OpenShift AI 2.23.0.
+    - TrustyAI operator needs to be enabled (`GuardrailsOrchestrator` CRD is provided)
 
 ### Required user permissions
 
@@ -88,10 +77,29 @@ PROJECT="guardrails-demo"
 oc new-project ${PROJECT}
 ``` 
 
+### Enable the TrustyAI operator
+
+The Helm chart deploys a `GuardrailsOrchestrator` custom resource, which requires the TrustyAI operator CRD to be registered in the cluster. The CRD is bundled in `helm/crds/` and Helm will install it automatically, but the TrustyAI operator itself must be running to reconcile the resource.
+
+Enable TrustyAI in the OpenShift AI DataScienceCluster before installing:
+
+```bash
+oc patch datasciencecluster default-dsc --type=merge \
+  -p '{"spec":{"components":{"trustyai":{"managementState":"Managed"}}}}'
+```
+
+Wait for the operator to be ready:
+
+```bash
+oc wait --for=condition=Available deployment/trustyai-service-operator-controller-manager \
+  -n redhat-ods-applications --timeout=300s
+```
+
 ### Install with Helm
 
 ```bash
-helm install ${PROJECT} helm/ --namespace ${PROJECT} 
+export DEVICE="gpu" # options: [gpu, cpu]
+helm install ${PROJECT} helm/ --namespace ${PROJECT} --set device=$DEVICE
 ```
 
 ### Wait for the pods to be ready

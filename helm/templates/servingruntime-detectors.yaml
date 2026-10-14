@@ -5,13 +5,13 @@ metadata:
   annotations:
     opendatahub.io/accelerator-name: ''
     opendatahub.io/apiProtocol: REST
-    opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+    opendatahub.io/recommended-accelerators: '{{ index .Values.annotations .Values.device "detectorsRecommendedAccelerators" | toJson }}'
     opendatahub.io/serving-runtime-scope: global
     opendatahub.io/template-display-name: Hugging Face Detector ServingRuntime for KServe
     opendatahub.io/template-name: guardrails-detector-huggingface-runtime
     openshift.io/display-name: gibberish-detector
   name: gibberish-detector
-  namespace: {{ .Release.Namespace }}
+  namespace: "{{ .Release.Namespace }}"
   labels:
     opendatahub.io/dashboard: 'true'
 spec:
@@ -56,13 +56,13 @@ metadata:
   annotations:
     opendatahub.io/accelerator-name: ''
     opendatahub.io/apiProtocol: REST
-    opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+    opendatahub.io/recommended-accelerators: '{{ index .Values.annotations .Values.device "detectorsRecommendedAccelerators" | toJson }}'
     opendatahub.io/serving-runtime-scope: global
     opendatahub.io/template-display-name: Hugging Face Detector ServingRuntime for KServe
     opendatahub.io/template-name: guardrails-detector-huggingface-runtime
     openshift.io/display-name: prompt-injection-detector
   name: prompt-injection-detector
-  namespace: {{ .Release.Namespace }}
+  namespace: "{{ .Release.Namespace }}"
   labels:
     opendatahub.io/dashboard: 'true'
 spec:
@@ -107,13 +107,13 @@ metadata:
   annotations:
     opendatahub.io/accelerator-name: ''
     opendatahub.io/apiProtocol: REST
-    opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+    opendatahub.io/recommended-accelerators: '{{ index .Values.annotations .Values.device "detectorsRecommendedAccelerators" | toJson }}'
     opendatahub.io/serving-runtime-scope: global
     opendatahub.io/template-display-name: Hugging Face Detector ServingRuntime for KServe
     opendatahub.io/template-name: guardrails-detector-huggingface-runtime
     openshift.io/display-name: ibm-hate-and-profanity-detector
   name: ibm-hate-and-profanity-detector
-  namespace: {{ .Release.Namespace }}
+  namespace: "{{ .Release.Namespace }}"
   labels:
     opendatahub.io/dashboard: 'true'
 spec:

@@ -1,4 +1,4 @@
 apiVersion: v2
 description: A quickstart for LLM Guardrails with TrustyAI orchestrator
 name: guardrailing-llms
-version: 1.0.0
+version: 1.1.0

@@ -2,27 +2,109 @@
 
 # Namespace will be automatically set by Helm to {{ .Release.Namespace }}
 
+# User-customizable configuration
+device: "gpu"  # Options: ["gpu", "cpu"]
+
+# Device-specific annotations
+annotations:
+  gpu:
+    detectorsRecommendedAccelerators:
+      - "nvidia.com/gpu"
+    inferenceServiceLlmDisplayName: "Llama 3.2 3b Instruct"
+  cpu:
+    detectorsRecommendedAccelerators:
+      - "cpu"
+    inferenceServiceLlmDisplayName: "Llama 3.2 3b Instruct CPU"
+
+# Device-specific inference service LLM variables
+inferenceServiceLlm:
+  common:
+    env:
+      HF_HOME: "/root/.cache/huggingface"
+      VLLM_CACHE_DIR: "/tmp/vllm_cache"
+      XDG_CACHE_HOME: "/tmp/.cache"
+  gpu:
+    env:
+      CUDA_VISIBLE_DEVICES: "0"
+    resources:
+      limits:
+        cpu: "8"
+        memory: 10Gi
+        nvidia.com/gpu: "1"
+      requests:
+        cpu: "4"
+        memory: 8Gi
+        nvidia.com/gpu: "1"
+  cpu:
+    env:
+      VLLM_CPU_KVCACHE_SPACE: "40"
+      VLLM_RPC_TIMEOUT: "100000"
+      VLLM_ALLOW_LONG_MAX_MODEL_LEN: "1"
+      VLLM_ENGINE_ITERATION_TIMEOUT_S: "120"
+      VLLM_CPU_SGL_KERNEL: "1"
+      HF_HUB_DISABLE_XET: "1"
+    resources:
+      limits:
+        cpu: "16"
+        memory: "64Gi"
+      requests:
+        cpu: "8"
+        memory: "32Gi"
+
+# Device-specific serving runtime LLM variables
+servingRuntimeLlm:
+  common:
+    args:
+      - --port=8080
+      - --model=/mnt/models
+      - --served-model-name=llama3-2-3b-instruct
+      - --enable-auto-tool-choice
+      - --tool-call-parser=llama3_json
+      - --chat-template=/app/data/template/tool_chat_template_llama3.2_json.jinja
+  gpu:
+    args:
+      - --enable-chunked-prefill
+      - --max-model-len=32768
+      - --max-num-seqs=8
+    command:
+      - python
+      - "-m"
+      - vllm.entrypoints.openai.api_server
+  cpu:
+    args:
+      - --block-size=128
+      - --dtype=bfloat16
+      - --max-model-len=8192
+      - --distributed-executor-backend=mp
+      - --max-num-batched-tokens=2048
+      - --max-num-seqs=256
+      - --tensor-parallel-size=1
+      - --pipeline-parallel-size=1
+    command:
+      - vllm
+      - serve
+
 # Main LLM
 mainLLM:
-  name: llama-32-3b-instruct
+  model: "meta-llama/Llama-3.2-3B-Instruct"
   storageUri: "oci://quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-3b-instruct"
-  image: "quay.io/modh/vllm@sha256:db766445a1e3455e1bf7d16b008f8946fcbe9f277377af7abb81ae358805e7e2"
   port: 8080
-  
-  # Enhanced vLLM features
-  enableAutoToolChoice: true
-  enableChunkedPrefill: true
-  toolCallParser: llama3_json
-  chatTemplate: /app/data/template/tool_chat_template_llama3.2_json.jinja
-  maxModelLen: 32768
-  maxNumSeqs: 8
-  
-  # Optional GPU tolerations
-  tolerations:
-    - key: nvidia.com/gpu
-      operator: Equal
-      value: "True"
-      effect: NoSchedule
+  gpu:
+    name: llama-3-2-3b-instruct
+    image: "quay.io/modh/vllm@sha256:db766445a1e3455e1bf7d16b008f8946fcbe9f277377af7abb81ae358805e7e2"
+    tolerations:
+      - key: nvidia.com/gpu
+        operator: Equal
+        value: "True"
+        effect: NoSchedule
+  cpu:
+    name: llama-3-2-3b-instruct-cpu
+    env:
+      # jemalloc memory allocator not supported on this image, using libomp instead
+      - name: LD_PRELOAD
+        value: "/usr/lib64/libomp.so"
+    image: "registry.redhat.io/rhaii/vllm-cpu-rhel9:3.4.0"
+    tolerations: []
 
 # Detectors
 detectors:
@@ -52,7 +134,9 @@ orchestrator:
 workbench:
   enabled: true
   name: guardrails-workbench
-  image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/s2i-minimal-notebook:2025.1
+  image: registry.redhat.io/rhoai/odh-workbench-jupyter-datascience-cpu-py312-rhel9:v3.4.0
+  annotations:
+    imageDisplayName: Jupyter | Data Science | CPU | Python 3.12
   resources:
     requests:
       cpu: "1"
@@ -66,5 +150,5 @@ workbench:
     url: https://github.com/rh-ai-quickstart/guardrailing-llms.git
     enabled: true
 
-# Cluster configuration  
+# Cluster configuration
 clusterdomainurl: cluster.example.com
